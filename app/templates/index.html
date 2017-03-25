@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block title %}Huzb{% endblock %}
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>你好, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}旅行者{% endif %}!</h1>
+</div>
+<div>
+    {% if current_user.can(Permission.WRITE_ARTICLES) %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-8">
+        {% include '_posts.html' %}
+        </div>
+        <div class="col-xs-2">
+        </div>
+    </div>
+<div class="pagination">
+    {{ macros.pagination_widget(pagination,'main.index') }}
+</div>
+{% endblock %}

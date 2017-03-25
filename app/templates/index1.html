@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}Huzb{% endblock %}
+    {% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+    {% endblock %}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/theme.css">-->
+    <script src="jquery/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- 顶部导航条，固定不动-->
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">微博</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default" style="background-color: #222 back-color:#222"><span
+                        style="font-color:#ffffff">Submit</span>
+                </button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="login" data-toggle="modal" data-target="#loginMyModal">登录</a></li>
+                <li><a>|</a></li>
+                <li><a href="#" id="register" data-toggle="modal" data-target="#registerMyModal">注册</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--内容区-->
+<div style="height: 50px"></div>
+<!--todo 后面可以加id，实现js脚本滑动-->
+<div class="row">
+    <div class="col-xs-2">
+    </div>
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-7">
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span id="theme" tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" id="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a id="resource" tag="resource" style="font-size: 10px"
+                                                                  href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">删除</a>
+                            </li>
+                            <li>
+                                <a href="#">屏蔽此微博</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10" id="content" tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" id="star" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" id="star1" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" id="share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span id="comment" tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span id="handup" tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                  href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+        <!--一条微博的开始-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img alt="140*140" src="imgs/1.jpg" class="img-circle">
+                    </div>
+                    <div class="col-xs-9">
+                        <span  tag="theme"><strong>我的标题</strong></span><br/>
+                        <span tag="time" style="font-size: 10px">来自25分钟前</span>
+                        <span style="font-size: 10px">来自</span><a  tag="resource" style="font-size: 10px"
+                                                                   href="#"> www.weibo.com</a>
+                    </div>
+                    <div class="col-xs-1 left btn-group">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">功能</a>
+                            </li>
+                            <li>
+                                <a href="#">另一个功能</a>
+                            </li>
+                            <li>
+                                <a href="#">其他</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">分离的链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!--为了跟前面标题缩进一致，所以加了个没有内容的div-->
+                    </div>
+                    <div class="col-xs-10"  tag="content">
+                        集川是一个好人，阿斯大幅i阿富汗司法局喀什房价as福建省福鼎很舒服i合法i哈俄方hiuewghwgihhewhwgiewuew
+                    </div>
+                </div>
+                <div style="height: 15px">
+                    <!--为了保持内容美观，所以加了个没有内容的div-->
+                </div>
+                <div class="row" style="background-color: #FFFFFF">
+                    <!--此div中有两个星号，一个为已收藏图标，一个为为收藏图标-->
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star-empty" tag="star"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-star" tag="star">收藏</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share" tag="share">转发</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="text-align: center">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <a href="#">
+                                    <span  tag="comment" class="glyphicon glyphicon-comment">评论</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="#">
+                            <span  tag="handup" class="glyphicon glyphicon-thumbs-up">点赞</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--一条微博的结束-->
+    </div>
+    <div class="col-xs-2">
+    </div>
+</div>
+
+<!--登录选悬浮框-->
+<div class="modal fade" id="loginMyModal" style="position: fixed;top: 25%;lef: 50%" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myLoginModalLabel">
+                    用户登录
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 70%;margin:0 auto">
+                    </br>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" class="form-control" placeholder="username">
+                    </div>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon "><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password"  class="form-control" placeholder="password">
+                    </div>
+                    <br/>
+                    <div>
+                        <div class="form-group">
+                            <div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 请记住我
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="float: right">
+                            <a href="#" id="forgetLoginpwd">忘记密码 </a>|
+                            <a href="#" id="registernow">立即注册</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    登录
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--注册选悬浮窗-->
+<div class="modal fade" id="registerMyModal" style="position: fixed;top: 25%;lef: 50%" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myRegisterModalLabel">
+                    用户注册
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 70%;margin:0 auto">
+                    </br>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" class="form-control" placeholder="username">
+                    </div>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon "><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password"  class="form-control" placeholder="password">
+                    </div>
+                    <br/>
+                    <div style="float: right">
+                        <a href="#" id="forgetpwd">注册不了？ </a>
+                    </div>
+                </div>
+                </br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        登录
+                    </button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>
+
+
+
+
